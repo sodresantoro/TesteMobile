@@ -6,7 +6,6 @@ use App\Http\Requests\VehicleRequest;
 use App\Http\Resources\VehicleResource;
 use App\Models\Vehicle;
 use App\Traits\ApiResponser;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class VehicleController extends Controller
@@ -33,7 +32,7 @@ class VehicleController extends Controller
         try {
             return $this->successResponse(VehicleResource::collection(Vehicle::all()), 'Vehicle list', 200);
         } catch (\Exception $exception) {
-            return $this->errorResponse($exception->getMessage(), 401);
+            return $this->errorResponse($exception->getMessage(), 404);
         }
     }
 
@@ -49,7 +48,7 @@ class VehicleController extends Controller
             $vehicle = Vehicle::create($this->formatData($request));
             return $this->successResponse(new VehicleResource($vehicle), 'Vehicle created', 201);
         } catch (\Exception $exception) {
-            return $this->errorResponse($exception->getMessage(), 401);
+            return $this->errorResponse($exception->getMessage(), 404);
         }
     }
 
@@ -64,7 +63,7 @@ class VehicleController extends Controller
         try {
             return $this->successResponse(new VehicleResource(Vehicle::findOrFail($id)), 'Vehicle get', 200);
         } catch (\Exception $exception) {
-            return $this->errorResponse($exception->getMessage(), 401);
+            return $this->errorResponse($exception->getMessage(), 404);
         }
     }
 
@@ -81,7 +80,7 @@ class VehicleController extends Controller
             $update = (Vehicle::where('id', $id)->update($this->formatData($request))) ? true : false;
             return $this->successResponse($update, 'Vehicle updated', 200);
         } catch (\Exception $exception) {
-            return $this->errorResponse($exception->getMessage(), 401);
+            return $this->errorResponse($exception->getMessage(), 404);
         }
     }
 
@@ -95,9 +94,9 @@ class VehicleController extends Controller
     {
         try {
             $data = Vehicle::destroy($id);
-            return $data ? $this->successResponse(true, 'Vehicle deleted', 200) : $this->errorResponse('Vehicle not deleted', 400);
+            return $data ? $this->successResponse(true, 'Vehicle deleted', 200) : $this->errorResponse('Vehicle not deleted', 404);
         } catch (\Exception $exception) {
-            return $this->errorResponse($exception->getMessage(), 401);
+            return $this->exceptionResponse($exception->getMessage());
         }
     }
 

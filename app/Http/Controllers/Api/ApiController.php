@@ -77,7 +77,7 @@ class ApiController extends Controller
             $user = auth()->user();
             return $this->successResponse(['user' => $user], 'user', 200);
         } catch (JWTException $exception) {
-            return $this->errorResponse( $exception->getMessage(), 501);
+            return $this->errorResponse( $exception->getMessage(), 404);
         }
     }
 

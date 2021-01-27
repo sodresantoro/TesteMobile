@@ -73,12 +73,12 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## Executar comandos abaixo para rodar com docker
 - clonar o repositório
-- copiar arquivo .env.example e renomear para .env
+- cp env-example .env
 - config database
 - run composer install
 - run php artisan key:generate
 - php artisan jwt:secret
-- em laradock copiar arquivo .env.example e renomear para .env
+- install laradock in https://laradock.io/getting-started/
 - run docker-compose up -d nginx mysql
-- run docker exec -it testapiapp_workspace_1 bash
+- run docker exec -it name_workspace_1 bash
 - run php artisan migrate --seed
